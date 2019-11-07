@@ -1,0 +1,21 @@
+{
+  "name": "babel-webpack",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "@babel/runtime": "^7.6.3",
+    "babel-loader": "^8.0.6",
+    "core-js": "^3.3.6"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.3"
+  },
+  "scripts": {
+    "build": "babel index.js --out-file dist.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

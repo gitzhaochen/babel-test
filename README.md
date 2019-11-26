@@ -7,14 +7,28 @@
 
 #### @babel/preset-env
 
-- 一系列同类插件组合，配合 useBuiltIns 参数、自动引入 polyfill 垫片处理新的 API 以及实例方法
-- target：需要支持的目标浏览器，不配置默认全部转成 ES5
-- corejs:polyfill 垫片，3 是最新的版本
-- useBuiltIns：false/entry/usage
-  . false:不使用垫片
-  . entry:一股脑引入所有垫片，体积太大
-  . usage:按需导入
-- 缺点：我们使用 polyfill 的方式引入了内置函数、比如 Promise，会污染全局。
+一系列同类插件组合，配合 useBuiltIns 参数、自动引入 polyfill 垫片处理新的 API 以及实例方法
+
+> 缺点：我们使用 polyfill 的方式引入了内置函数、比如 Promise，会污染全局。
+
+```js
+//默认配置
+{
+  targets:{},//需要支持的目标浏览器，不配置默认全部转成 ES5
+  spec:false,
+  loose:false,
+  modules:'auto',//webpack 会将 es6 转成 commonjs 规范，babel 就不要转了,一般配置成 false
+  debug:false,
+  include:[],
+  exclude:[],
+  useBuiltIns:false,// false:不使用垫片| entry:一股脑引入所有垫片，体积太大 | usage:按需导入
+  corejs:2,//polyfill 垫片，3 是最新的版本
+  forceAllTransforms:false,
+  configPath:process.cwd(),//当前目录
+  ignoreBrowserslistConfig:false,
+  shippedProposals:false
+}
+```
 
 #### @babel/runtime
 
@@ -34,14 +48,14 @@
 
 #### 总结
 
-- 项目开发中使用
+1. 项目开发中使用
 
 ```js
-@babel/preset-env:{corejs:3,useBuiltIns:'usage',target:{}}
+@babel/preset-env:{corejs:3,useBuiltIns:'usage',modules:false,target:{}}
 @babel/runtime:{helpers: true,regenerator: false}
 ```
 
-- 开发工具类库使用
+2. 开发工具类库使用
 
 ````js
 @babel/preset-env:{corejs:3,useBuiltIns:'usage',target:{}}
@@ -51,5 +65,6 @@
 #### DEMO
 
 ```sh
-npm run build
+npm run webpack
+npm run babel
 ```

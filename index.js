@@ -1,1 +1,2 @@
-class Person {}
+import log from './log.js'
+log()

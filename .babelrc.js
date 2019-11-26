@@ -21,7 +21,7 @@ const config = {
       {
         corejs: false, //是否使用core-js; babel-runtime自带core-js
         helpers: true,
-        regenerator: false
+        regenerator: true
       }
     ]
   ]

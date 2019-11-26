@@ -39,7 +39,7 @@
 //默认配置
 {
   absoluteRuntime: false,//配置 @babel/runtime模块路径，默认从node_modules读取
-  corejs: false,//是否使用core-js; babel-runtime自带core-js,设置2/3会覆盖preset-env的corejs
+  corejs: false,//false：使用preset-env的corejs，但是会存在污染全局问题（如：Array.from），设置2/3会覆盖preset-env的corejs，且不会污染全局
   helpers: true,//开启帮助函数,移除冗余工具函数
   regenerator: true,//是否用 辅助函数来代替 async / generator 函数
   useESModules: false
@@ -51,15 +51,71 @@
 1. 项目开发中使用
 
 ```js
-@babel/preset-env:{corejs:3,useBuiltIns:'usage',modules:false,target:{}}
-@babel/runtime:{helpers: true,regenerator: false}
+//.babelrc.js
+const config = {
+  presets: [
+    [
+      "@babel/env",
+      {
+        targets: {
+          edge: '17',
+          firefox: '60',
+          chrome: "44",
+          safari: "7"
+        },
+        useBuiltIns: "usage",
+        corejs: 3,
+        modules: false
+      }
+    ]
+  ],
+  plugins: [
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        helpers: true,
+        regenerator: false
+      }
+    ]
+  ]
+};
 ```
 
 2. 开发工具类库使用
 
 ````js
-@babel/preset-env:{corejs:3,useBuiltIns:'usage',target:{}}
-@babel/runtime:{corejs: 3,helpers: true,regenerator: true}```
+//.babelrc.js
+
+const config = {
+  presets: [
+    [
+      "@babel/env",
+      {
+        targets: {
+          edge: '17',
+          firefox: '60',
+          chrome: "44",
+          safari: "7"
+        },
+        useBuiltIns: "usage",
+        corejs: 3,
+        modules: false
+      }
+    ]
+  ],
+  plugins: [
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        corejs: 3,
+        helpers: true,
+        regenerator: true
+      }
+    ]
+  ]
+};
+module.exports = config;
+
 ````
 
 #### DEMO

@@ -19,9 +19,9 @@ const config = {
     [
       "@babel/plugin-transform-runtime",
       {
-        corejs: false, //是否使用core-js; babel-runtime自带core-js
         helpers: true,
-        regenerator: true
+        regenerator: false,
+        useESModules: true
       }
     ]
   ]

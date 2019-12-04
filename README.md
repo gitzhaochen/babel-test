@@ -41,8 +41,8 @@
   absoluteRuntime: false,//配置 @babel/runtime模块路径，默认从node_modules读取
   corejs: false,//false：使用preset-env的corejs，但是会存在污染全局问题（如：Array.from），设置2/3会覆盖preset-env的corejs，且不会污染全局
   helpers: true,//开启帮助函数,移除冗余工具函数
-  regenerator: true,//是否用 辅助函数来代替 async / generator 函数
-  useESModules: false
+  regenerator: true,//通过 preset-env 已经使用了全局的 regeneratorRuntime, 不再需要 transform-runtime 提供的 不污染全局的 regeneratorRuntime 可以设置为false
+  useESModules: false// 是否使用 es modules helpers, 减少 commonJS 语法代码，而且webpack 会将 es6 转成 commonjs 规
 }
 ```
 
@@ -58,8 +58,8 @@ const config = {
       "@babel/env",
       {
         targets: {
-          edge: '17',
-          firefox: '60',
+          edge: "17",
+          firefox: "60",
           chrome: "44",
           safari: "7"
         },
@@ -74,7 +74,8 @@ const config = {
       "@babel/plugin-transform-runtime",
       {
         helpers: true,
-        regenerator: false
+        regenerator: false,
+        useESModules: true
       }
     ]
   ]
@@ -83,7 +84,7 @@ const config = {
 
 2. 开发工具类库使用
 
-````js
+```js
 //.babelrc.js
 
 const config = {
@@ -92,8 +93,8 @@ const config = {
       "@babel/env",
       {
         targets: {
-          edge: '17',
-          firefox: '60',
+          edge: "17",
+          firefox: "60",
           chrome: "44",
           safari: "7"
         },
@@ -109,14 +110,14 @@ const config = {
       {
         corejs: 3,
         helpers: true,
-        regenerator: true
+        regenerator: true,
+        useESModules: true
       }
     ]
   ]
 };
 module.exports = config;
-
-````
+```
 
 #### DEMO
 
